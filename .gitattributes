@@ -1,2 +1,31 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Treat Python files as text
+*.py text
+
+# Treat JSON files as text
+*.json text
+
+# Ignore binary files for diff
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+
+# Treat migration files as text
+migrations/*.py text
+
+# Ignore compiled Python files for diff
+*.pyc binary
+
+# Django static files (if any)
+*.css text
+*.js text
+
+# SQLite database files (if used for development)
+*.sqlite3 binary
+
+# Avoid diffs for lock files
+Pipfile.lock -diff
+poetry.lock -diff
