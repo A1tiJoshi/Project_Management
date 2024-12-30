@@ -1,145 +1,102 @@
+# Project Management
 
----
+This is a Django-based project management application that allows users to manage projects, tasks, and team members.
 
-## **Project Management System Backend**
-A backend system built with Django and PostgreSQL to manage projects, tasks, and team members. It includes CRUD APIs, JWT authentication, Redis caching, and Celery for background task management.
+## Features
 
----
+- User authentication (registration and login)
+- CRUD operations for projects, tasks, and team members
+- API endpoints for managing projects, tasks, and team members
+- Admin interface for managing data
 
-### **Features**
-- Project, Task, and Team Member management.
-- JWT authentication for secure access.
-- Redis caching for performance optimization.
-- Background tasks handled by Celery.
-- Admin interface for easy management.
+## Installation
 
----
+1. **Clone the repository**:
+    ```sh
+    git clone https://github.com/your-username/Project_Management.git
+    cd Project_Management
+    ```
 
-### **Technologies Used**
-- Python (Django Framework)
-- PostgreSQL
-- Django REST Framework (DRF)
-- Celery with Redis
-- Docker (optional)
+2. **Create and activate a virtual environment**:
+    ```sh
+    python -m venv venv
+    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    ```
 
----
+3. **Install the dependencies**:
+    ```sh
+    pip install -r requirements.txt
+    ```
 
-### **Setup Instructions**
+4. **Set up environment variables**:
+    - Create a [.env](http://_vscodecontentref_/1) file in the root directory and add the following:
+      ```properties
+      SECRET_KEY=abcd1234
+      DEBUG=True
+      ALLOWED_HOSTS=localhost,127.0.0.1
+      DB_NAME=project_management_db
+      DB_USER=project_user
+      DB_PASSWORD=securepassword
+      DB_HOST=localhost
+      DB_PORT=5432
+      ```
 
-#### **1. Clone the Repository**
-```bash
-git clone https://github.com/your-username/project-management-system.git
-cd project-management-system
-```
+5. **Apply migrations**:
+    ```sh
+    python manage.py migrate
+    ```
 
-#### **2. Create and Activate a Virtual Environment**
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows, use venv\Scripts\activate
-```
+6. **Create a superuser**:
+    ```sh
+    python manage.py createsuperuser
+    ```
 
-#### **3. Install Dependencies**
-```bash
-pip install -r requirements.txt
-```
+7. **Run the development server**:
+    ```sh
+    python manage.py runserver
+    ```
 
-#### **4. Set Up the PostgreSQL Database**
-1. Install PostgreSQL.
-2. Create a new database:
-   ```sql
-   CREATE DATABASE project_management;
-   ```
-3. Update `DATABASES` in `settings.py` with your database credentials.
+## API Documentation
 
-#### **5. Apply Migrations**
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
+### Authentication
 
-#### **6. Run the Development Server**
-```bash
-python manage.py runserver
-```
-
-The server will be available at `http://127.0.0.1:8000`.
-
----
-
-### **API Documentation**
-
-#### **Authentication**
 - **Register**: `POST /auth/register/`
   - Request Body: `{ "username": "...", "password": "..." }`
 - **Login**: `POST /auth/login/`
   - Response: `{ "access": "...", "refresh": "..." }`
 
-#### **Endpoints**
+### Endpoints
+
 - **Projects**
   - `GET /projects/`: List all projects.
   - `POST /projects/`: Create a new project.
   - `GET /projects/<id>/`: Retrieve a project by ID.
   - `PUT /projects/<id>/`: Update a project.
   - `DELETE /projects/<id>/`: Delete a project.
+
 - **Tasks**
   - `GET /tasks/`: List all tasks.
-  - CRUD operations similar to projects.
+  - `POST /tasks/`: Create a new task.
+  - `GET /tasks/<id>/`: Retrieve a task by ID.
+  - `PUT /tasks/<id>/`: Update a task.
+  - `DELETE /tasks/<id>/`: Delete a task.
+
 - **Team Members**
-  - CRUD operations similar to projects.
+  - `GET /team-members/`: List all team members.
+  - `POST /team-members/`: Create a new team member.
+  - `GET /team-members/<id>/`: Retrieve a team member by ID.
+  - `PUT /team-members/<id>/`: Update a team member.
+  - `DELETE /team-members/<id>/`: Delete a team member.
+
+## Postman Collection
 
 Import the Postman collection `postman_collection.json` from the repository to explore the APIs.
 
----
+## Running Tests
 
-### **Background Tasks with Celery**
-
-#### **1. Install Redis**
-On Linux:
-```bash
-sudo apt update
-sudo apt install redis
-```
-On macOS:
-```bash
-brew install redis
-```
-
-#### **2. Start Redis Server**
-```bash
-redis-server
-```
-
-#### **3. Run Celery Worker**
-```bash
-celery -A project_management_system worker --loglevel=info
-```
-
-#### **4. Example Background Task**
-The `send_email_task` function in `tasks.py` is an example background task. It can be triggered programmatically.
-
----
-
-### **Optimizations**
-- Use `select_related` and `prefetch_related` in queries to reduce database hits.
-- Redis caching implemented for frequently queried data.
-
----
-
-### **Admin Interface**
-Access the admin panel at `http://127.0.0.1:8000/admin`. Use the superuser credentials created during setup.
-
----
-
-### **Testing**
-Run tests with:
-```bash
+To run tests, use the following command:
+```sh
 python manage.py test
-```
 
----
 
-### **License**
-This project is licensed under the MIT License.
-
----
 
